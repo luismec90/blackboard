@@ -19,7 +19,9 @@ class HomeController extends BaseController {
     }
 
     public function test() {
-        return "test";
+        echo "asd";
+        $points = Point::all();
+        //return "test";
     }
 
 }

@@ -16,5 +16,14 @@ Route::get('/', function() {
 });
 
 Route::group(array('prefix' => 'api'), function() {
-      Route::get('test', array('uses' => 'HomeController@test'));
+    Route::get('closestpoint/{latitude}/{longitude}', array('uses' => 'PointController@closest'));
+});
+
+Route::get('/excel', function() {
+    Excel::create('Filename', function($excel) {
+        $excel->sheet('Sheetname', function($sheet) {
+            $points = Point::get(array('primary_city'))->take(4);
+            $sheet->fromArray($points);
+        });
+    })->export('xls');
 });
